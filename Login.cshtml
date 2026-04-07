@@ -1,0 +1,391 @@
+﻿@model V22T1020381.Admin.Models.ViewModels.LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng nhập hệ thống</title>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-2: #1d4ed8;
+            --bg-1: #eff6ff;
+            --bg-2: #eef2ff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --danger-bg: #fef2f2;
+            --danger-text: #b91c1c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: radial-gradient(circle at top left, #dbeafe 0%, transparent 32%), radial-gradient(circle at bottom right, #e9d5ff 0%, transparent 28%), linear-gradient(135deg, var(--bg-1), var(--bg-2));
+            color: var(--text);
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+        }
+
+        .auth-shell {
+            width: 100%;
+            max-width: 1080px;
+            background: #fff;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, .14);
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+        }
+
+        .auth-side {
+            padding: 48px;
+            background: linear-gradient(160deg, #1d4ed8, #4f46e5 65%, #7c3aed);
+            color: #fff;
+            position: relative;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 52px;
+        }
+
+        .brand-badge {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: rgba(255,255,255,.14);
+            border: 1px solid rgba(255,255,255,.2);
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .side-title {
+            font-size: 40px;
+            line-height: 1.2;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .side-desc {
+            font-size: 17px;
+            line-height: 1.75;
+            color: rgba(255,255,255,.9);
+            max-width: 480px;
+        }
+
+        .side-card {
+            margin-top: 28px;
+            padding: 18px 20px;
+            border-radius: 18px;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.18);
+        }
+
+        .side-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .side-card p {
+            margin: 0;
+            color: rgba(255,255,255,.92);
+            line-height: 1.65;
+            font-size: 14px;
+        }
+
+        .auth-main {
+            padding: 52px 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+        }
+
+        .form-box {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .eyebrow {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: .3px;
+            margin-bottom: 8px;
+        }
+
+        .form-title {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .validation-summary-errors,
+        .validation-summary-valid {
+            margin-bottom: 16px;
+        }
+
+        .validation-summary-errors {
+            background: var(--danger-bg);
+            color: var(--danger-text);
+            border: 1px solid #fecaca;
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 14px;
+        }
+
+            .validation-summary-errors ul {
+                margin: 0;
+                padding-left: 18px;
+            }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 52px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 0 14px;
+            font-size: 15px;
+            outline: none;
+            transition: .2s ease;
+            box-shadow: none;
+        }
+
+            .form-control:focus {
+                border-color: #93c5fd;
+                box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+            }
+
+        .field-validation-error {
+            display: block;
+            margin-top: 6px;
+            color: #dc2626;
+            font-size: 13px;
+        }
+
+        .btn-login {
+            width: 100%;
+            height: 54px;
+            border: 0;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-2));
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            transition: .2s ease;
+            margin-top: 6px;
+        }
+
+            .btn-login:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 12px 24px rgba(37, 99, 235, .22);
+            }
+
+        .helper {
+            margin-top: 22px;
+            padding: 15px 16px;
+            border-radius: 14px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+            .helper strong {
+                color: #0f172a;
+            }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+            .links a {
+                color: var(--primary);
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 14px;
+            }
+
+                .links a:hover {
+                    text-decoration: underline;
+                }
+
+        .modal-content {
+            border: 0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        @@media (max-width: 991.98px) {
+            .auth-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-side {
+                display: none;
+            }
+
+            .auth-main {
+                padding: 34px 22px;
+            }
+
+            .form-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="auth-shell">
+            <div class="auth-side">
+                <div class="brand">
+                    <div class="brand-badge">LC</div>
+                    <div>LiteCommerce</div>
+                </div>
+
+                <div class="side-title">Hệ thống quản trị bán hàng</div>
+                <div class="side-desc">
+                    Đăng nhập để quản lý đơn hàng, mặt hàng, khách hàng, nhân viên
+                    và toàn bộ dữ liệu vận hành trên hệ thống.
+                </div>
+
+                <div class="side-card">
+                    <div class="side-card-title">Lưu ý</div>
+                    <p>
+                        Tài khoản đăng nhập là <strong>email nhân viên</strong>.
+                        Nếu đang kiểm tra bằng dữ liệu mẫu, hãy dùng đúng email trong bảng Employees.
+                    </p>
+                </div>
+            </div>
+
+            <div class="auth-main">
+                <div class="form-box">
+                    <div class="eyebrow">CHÀO MỪNG BẠN QUAY LẠI</div>
+                    <div class="form-title">Đăng nhập</div>
+                    <div class="form-subtitle">
+                        Nhập email nhân viên và mật khẩu để truy cập vào hệ thống quản trị.
+                    </div>
+
+                    <div asp-validation-summary="All"></div>
+
+                    <form method="post" action="~/Account/Login">
+                        <div class="form-group">
+                            <label asp-for="Username" class="form-label">Email nhân viên</label>
+                            <input asp-for="Username" class="form-control" placeholder="vd: leduchung@mycompany.com" autocomplete="username" />
+                            <span asp-validation-for="Username"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password" class="form-label">Mật khẩu</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Nhập mật khẩu" autocomplete="current-password" />
+                            <span asp-validation-for="Password"></span>
+                        </div>
+
+                        <button type="submit" class="btn-login">Đăng nhập vào hệ thống</button>
+                    </form>
+
+                    <div class="helper">
+                        <div><strong>Gợi ý:</strong> không dùng tên ngắn như <strong>admin</strong> nếu hệ thống đang đăng nhập bằng email nhân viên.</div>
+                        <div>Nếu đang dùng dữ liệu mẫu, mật khẩu thường là <strong>123456</strong>.</div>
+                    </div>
+
+                    <div class="links">
+                        <a href="~/Account/ForgotPassword" class="btn-modal">Quên mật khẩu?</a>
+                        <a href="~/Account/ChangePassword" class="btn-modal">Đổi mật khẩu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="authModalContent"></div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).on("click", ".btn-modal", function (e) {
+            e.preventDefault();
+            let url = $(this).attr("href");
+
+            $("#authModalContent").load(url, function () {
+                let modal = new bootstrap.Modal(document.getElementById("authModal"));
+                modal.show();
+            });
+        });
+
+        $(document).on("submit", "#authModal form", function (e) {
+            e.preventDefault();
+
+            let form = $(this);
+            $.ajax({
+                url: form.attr("action"),
+                method: form.attr("method"),
+                data: form.serialize(),
+                success: function (data) {
+                    if (typeof data === "object") {
+                        alert(data.message || data.Message || "Thao tác thành công");
+                        if ((data.code || data.Code) == 1) {
+                            bootstrap.Modal.getInstance(document.getElementById("authModal")).hide();
+                        }
+                    } else {
+                        $("#authModalContent").html(data);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
