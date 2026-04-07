@@ -1,0 +1,17 @@
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\bin\Debug\net8.0\SV22T1020303.BusinessLayers.deps.json
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\bin\Debug\net8.0\SV22T1020303.BusinessLayers.dll
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\bin\Debug\net8.0\SV22T1020303.BusinessLayers.pdb
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\bin\Debug\net8.0\SV22T1020303.DataLayers.dll
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\bin\Debug\net8.0\SV22T1020303.Models.dll
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\bin\Debug\net8.0\SV22T1020303.DataLayers.pdb
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\bin\Debug\net8.0\SV22T1020303.Models.pdb
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\SV22T1020303.BusinessLayers.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\SV22T1020303.BusinessLayers.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\SV22T1020303.BusinessLayers.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\SV22T1020303.BusinessLayers.AssemblyInfo.cs
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\SV22T1020303.BusinessLayers.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\SV22T102.543D60CE.Up2Date
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\SV22T1020303.BusinessLayers.dll
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\refint\SV22T1020303.BusinessLayers.dll
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\SV22T1020303.BusinessLayers.pdb
+C:\Users\Admin\source\repos\SV22T1020303\SV22T1020303.BusinessLayers\obj\Debug\net8.0\ref\SV22T1020303.BusinessLayers.dll

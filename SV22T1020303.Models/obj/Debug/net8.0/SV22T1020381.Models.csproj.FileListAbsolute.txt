@@ -1,0 +1,22 @@
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\bin\Debug\net8.0\SV22T1020381.Models.deps.json
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\bin\Debug\net8.0\SV22T1020381.Models.dll
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\bin\Debug\net8.0\SV22T1020381.Models.pdb
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.AssemblyInfoInputs.cache
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.AssemblyInfo.cs
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.csproj.CoreCompileInputs.cache
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.dll
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\refint\SV22T1020381.Models.dll
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.pdb
+C:\folderoC\visual studio\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\ref\SV22T1020381.Models.dll
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\bin\Debug\net8.0\SV22T1020381.Models.deps.json
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\bin\Debug\net8.0\SV22T1020381.Models.dll
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\bin\Debug\net8.0\SV22T1020381.Models.pdb
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.AssemblyInfoInputs.cache
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.AssemblyInfo.cs
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.csproj.CoreCompileInputs.cache
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.dll
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\refint\SV22T1020381.Models.dll
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\SV22T1020381.Models.pdb
+C:\Users\lab\Downloads\SV22T1020381\SV22T1020381.Models\obj\Debug\net8.0\ref\SV22T1020381.Models.dll
