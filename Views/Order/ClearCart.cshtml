@@ -1,0 +1,54 @@
+﻿@model List<OrderDetailViewInfo>
+
+@{
+    Layout = null;
+}
+
+<div class="modal-header text-bg-danger">
+    <strong class="modal-title">
+        Xóa giỏ hàng
+    </strong>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+    <div class="alert alert-danger d-flex align-items-center">
+        <i class="bi bi-info-circle me-2"></i>
+        Bạn có chắc chắn muốn xóa tất cả các mặt hàng trong giỏ hàng không?
+    </div>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="mt-3">
+            <strong>Số mặt hàng trong giỏ:</strong> @Model.Count
+        </div>
+    }
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" onclick="clearCart()">
+        <i class="bi bi-check"></i> Chấp nhận
+    </button>
+    <button type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal">
+        Đóng
+    </button>
+</div>
+
+<script>
+    function clearCart() {
+        $.post("/Order/ClearCartConfirmed", function (result) {
+            if (result.code <= 0) {
+                alert(result.message);
+                return;
+            }
+
+            const modalEl = document.getElementById('dialogModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) modal.hide();
+
+            $("#cartResult").load("/Order/ShowCart");
+        });
+    }
+</script>

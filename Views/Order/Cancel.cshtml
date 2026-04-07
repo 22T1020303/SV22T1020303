@@ -1,0 +1,38 @@
+﻿@model OrderViewInfo
+
+@{
+    Layout = null;
+}
+
+<form id="formCancel" onsubmit="submitCancel(event, @Model.OrderID)">
+    <div class="modal-header text-bg-warning">
+        <strong class="modal-title">
+            Xác nhận hủy đơn hàng
+        </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+
+    <div class="modal-body">
+        <div class="alert alert-warning d-flex align-items-center">
+            <i class="bi bi-info-circle me-2"></i>
+            Bạn có thực sự muốn hủy đơn hàng này không?
+        </div>
+
+        <dl class="row mb-0">
+            <dt class="col-sm-4">Mã đơn hàng</dt>
+            <dd class="col-sm-8">@Model.OrderID</dd>
+
+            <dt class="col-sm-4">Khách hàng</dt>
+            <dd class="col-sm-8">@Model.CustomerName</dd>
+        </dl>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-warning">
+            <i class="bi bi-x-circle"></i> Hủy đơn
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Đóng
+        </button>
+    </div>
+</form>

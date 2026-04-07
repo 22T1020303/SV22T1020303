@@ -1,0 +1,447 @@
+﻿@model OrderViewInfo
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    var details = ViewBag.OrderDetails as IEnumerable<OrderDetailViewInfo> ?? new List<OrderDetailViewInfo>();
+}
+
+@section PageToolBar {
+    <div class="btn-group">
+        <button type="button"
+                class="btn btn-primary dropdown-toggle"
+                data-bs-toggle="dropdown">
+            <i class="bi bi-gear me-1"></i>
+            Xử lý đơn hàng
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item"
+                   href="javascript:void(0)"
+                   onclick="openOrderModal('/Order/Accept/@Model.OrderID')">
+                    Duyệt đơn hàng
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item"
+                   href="javascript:void(0)"
+                   onclick="openOrderModal('/Order/Shipping/@Model.OrderID')">
+                    Chuyển giao hàng
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item"
+                   href="javascript:void(0)"
+                   onclick="openOrderModal('/Order/Finish/@Model.OrderID')">
+                    Hoàn tất đơn hàng
+                </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <a class="dropdown-item text-danger"
+                   href="javascript:void(0)"
+                   onclick="openOrderModal('/Order/Cancel/@Model.OrderID')">
+                    Hủy đơn hàng
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-danger"
+                   href="javascript:void(0)"
+                   onclick="openOrderModal('/Order/Reject/@Model.OrderID')">
+                    Từ chối đơn hàng
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <a href="javascript:void(0)"
+       class="btn btn-danger ms-1"
+       onclick="openOrderModal('/Order/Delete/@Model.OrderID')">
+        <i class="bi bi-trash"></i>
+        Xóa
+    </a>
+
+    <a href="~/Order" class="btn btn-secondary ms-1">
+        <i class="bi bi-arrow-left"></i>
+        Quay lại
+    </a>
+}
+
+<div class="alert d-flex align-items-center mb-3
+    @(Model.Status == OrderStatusEnum.Completed ? "alert-success" :
+                Model.Status == OrderStatusEnum.Accepted ? "alert-info" :
+                Model.Status == OrderStatusEnum.Shipping ? "alert-primary" :
+                Model.Status == OrderStatusEnum.Cancelled ? "alert-secondary" :
+                Model.Status == OrderStatusEnum.Rejected ? "alert-danger" : "alert-warning")">
+    <i class="bi bi-info-circle-fill fs-4 me-2"></i>
+    <div>
+        <strong>Trạng thái:</strong>
+        @switch (Model.Status)
+        {
+            case OrderStatusEnum.New:
+                <span>Chờ duyệt</span>
+                break;
+            case OrderStatusEnum.Accepted:
+                <span>Đã duyệt</span>
+                break;
+            case OrderStatusEnum.Shipping:
+                <span>Đang giao</span>
+                break;
+            case OrderStatusEnum.Completed:
+                <span>Hoàn tất</span>
+                break;
+            case OrderStatusEnum.Cancelled:
+                <span>Đã hủy</span>
+                break;
+            case OrderStatusEnum.Rejected:
+                <span>Từ chối</span>
+                break;
+            default:
+                <span>Không xác định</span>
+                break;
+        }
+    </div>
+</div>
+
+<div class="card card-primary card-outline mb-3">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Thông tin đơn hàng</h5>
+    </div>
+    <div class="card-body ps-4 pe-4">
+        <div class="row mb-2">
+            <div class="col-md-3 fw-bold">Mã đơn</div>
+            <div class="col-md-3">@Model.OrderID</div>
+
+            <div class="col-md-3 fw-bold">Ngày lập</div>
+            <div class="col-md-3">@Model.OrderTime.ToString("dd/MM/yyyy HH:mm")</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 fw-bold">Nhân viên</div>
+            <div class="col-md-3">@Model.EmployeeName</div>
+
+            <div class="col-md-3 fw-bold">Ngày nhận</div>
+            <div class="col-md-3">@(Model.AcceptTime?.ToString("dd/MM/yyyy HH:mm") ?? "")</div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-info card-outline mb-3">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Khách hàng</h5>
+    </div>
+    <div class="card-body ps-4 pe-4">
+        <div class="row mb-2">
+            <div class="col-md-3 fw-bold">Tên KH</div>
+            <div class="col-md-3">@Model.CustomerName</div>
+
+            <div class="col-md-3 fw-bold">Tên giao dịch</div>
+            <div class="col-md-3">@Model.CustomerContactName</div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-3 fw-bold">Email</div>
+            <div class="col-md-9">@Model.CustomerEmail</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 fw-bold">Địa chỉ</div>
+            <div class="col-md-9">@Model.CustomerAddress</div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-success card-outline mb-3">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Giao hàng</h5>
+    </div>
+    <div class="card-body ps-4 pe-4">
+        <div class="row mb-2">
+            <div class="col-md-3 fw-bold">Shipper</div>
+            <div class="col-md-3">@Model.ShipperName</div>
+
+            <div class="col-md-3 fw-bold">Điện thoại</div>
+            <div class="col-md-3">@Model.ShipperPhone</div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-3 fw-bold">Địa chỉ</div>
+            <div class="col-md-9">@Model.DeliveryAddress</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 fw-bold">Tỉnh</div>
+            <div class="col-md-9">@Model.DeliveryProvince</div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-secondary card-outline">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Danh sách mặt hàng</h5>
+    </div>
+
+    <div class="card-body table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-secondary text-center">
+                <tr>
+                    <th>STT</th>
+                    <th>Tên hàng</th>
+                    <th>ĐVT</th>
+                    <th>SL</th>
+                    <th>Giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int index = 1;
+                    decimal total = 0;
+                }
+                @foreach (var item in details)
+                {
+                    var amount = item.Quantity * item.SalePrice;
+                    total += amount;
+                    <tr>
+                        <td class="text-center">@index</td>
+                        <td>@item.ProductName</td>
+                        <td class="text-center">@item.Unit</td>
+                        <td class="text-center">@item.Quantity</td>
+                        <td class="text-end">@item.SalePrice.ToString("N0")</td>
+                        <td class="text-end">@amount.ToString("N0")</td>
+                    </tr>
+                    index++;
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5" class="text-end">Tổng</th>
+                    <th class="text-end">@total.ToString("N0")</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card-body .row {
+            border-bottom: 1px dotted #646464;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        async function openOrderModal(url) {
+            try {
+                const response = await fetch(url, { method: 'GET' });
+                if (!response.ok) {
+                    throw new Error('Không thể tải nội dung');
+                }
+
+                const html = await response.text();
+                const modalEl = document.getElementById('dialogModal');
+                const modalContent = modalEl.querySelector('.modal-content');
+                modalContent.innerHTML = html;
+
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            } catch (error) {
+                console.error(error);
+                alert('Không thể mở cửa sổ xử lý đơn hàng');
+            }
+        }
+
+        async function acceptOrder(event, orderID) {
+            event.preventDefault();
+
+            try {
+                const response = await fetch(`/Order/AcceptConfirmed/${orderID}`, {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Lỗi khi gọi API');
+                }
+
+                const result = await response.json();
+
+                if (result.code <= 0) {
+                    alert(result.message || 'Không thể duyệt đơn hàng');
+                    return;
+                }
+
+                closeOrderModalAndReload();
+            } catch (error) {
+                console.error(error);
+                alert('Có lỗi xảy ra khi duyệt đơn hàng');
+            }
+        }
+
+        async function submitCancel(event, orderID) {
+            event.preventDefault();
+
+            try {
+                const response = await fetch(`/Order/CancelConfirmed/${orderID}`, {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Lỗi khi gọi API');
+                }
+
+                const result = await response.json();
+
+                if (result.code <= 0) {
+                    alert(result.message || 'Không thể hủy đơn hàng');
+                    return;
+                }
+
+                closeOrderModalAndReload();
+            } catch (error) {
+                console.error(error);
+                alert('Có lỗi xảy ra khi hủy đơn hàng');
+            }
+        }
+
+        async function rejectOrder(event, orderID) {
+            event.preventDefault();
+
+            const reasonElement = document.getElementById('rejectReason');
+            const reason = reasonElement ? reasonElement.value.trim() : '';
+
+            if (!reason) {
+                alert('Vui lòng nhập lý do từ chối');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/Order/RejectConfirmed/${orderID}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `id=${orderID}&description=${encodeURIComponent(reason)}`
+                });
+
+                if (!response.ok) {
+                    throw new Error('Lỗi khi gọi API');
+                }
+
+                const result = await response.json();
+
+                if (result.code <= 0) {
+                    alert(result.message || 'Không thể từ chối đơn hàng');
+                    return;
+                }
+
+                closeOrderModalAndReload();
+            } catch (error) {
+                console.error(error);
+                alert('Có lỗi xảy ra khi từ chối đơn hàng');
+            }
+        }
+
+        async function shippingOrder(event, orderID) {
+            event.preventDefault();
+
+            const shipperElement = document.getElementById('shipperID');
+            const shipperID = shipperElement ? shipperElement.value : 0;
+
+            if (shipperID == 0) {
+                alert('Vui lòng chọn người giao hàng');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/Order/ShippingConfirmed/${orderID}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `id=${orderID}&shipperID=${shipperID}`
+                });
+
+                if (!response.ok) {
+                    throw new Error('Lỗi khi gọi API');
+                }
+
+                const result = await response.json();
+
+                if (result.code <= 0) {
+                    alert(result.message || 'Không thể chuyển giao hàng');
+                    return;
+                }
+
+                closeOrderModalAndReload();
+            } catch (error) {
+                console.error(error);
+                alert('Có lỗi xảy ra khi chuyển giao hàng');
+            }
+        }
+
+        async function finishOrder(event, orderID) {
+            event.preventDefault();
+
+            try {
+                const response = await fetch(`/Order/FinishConfirmed/${orderID}`, {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Lỗi khi gọi API');
+                }
+
+                const result = await response.json();
+
+                if (result.code <= 0) {
+                    alert(result.message || 'Không thể hoàn tất đơn hàng');
+                    return;
+                }
+
+                closeOrderModalAndReload();
+            } catch (error) {
+                console.error(error);
+                alert('Có lỗi xảy ra khi hoàn tất đơn hàng');
+            }
+        }
+
+        async function deleteOrder(event, orderID) {
+            event.preventDefault();
+
+            try {
+                const response = await fetch(`/Order/DeleteConfirmed/${orderID}`, {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Lỗi khi gọi API');
+                }
+
+                const result = await response.json();
+
+                if (result.code <= 0) {
+                    alert(result.message || 'Không thể xóa đơn hàng');
+                    return;
+                }
+
+                const modalEl = document.getElementById('dialogModal');
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) modal.hide();
+
+                window.location.href = '/Order';
+            } catch (error) {
+                console.error(error);
+                alert('Có lỗi xảy ra khi xóa đơn hàng');
+            }
+        }
+
+        function closeOrderModalAndReload() {
+            const modalEl = document.getElementById('dialogModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) modal.hide();
+
+            window.location.reload();
+        }
+    </script>
+}

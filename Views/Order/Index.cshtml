@@ -1,0 +1,131 @@
+﻿@model OrderSearchInput
+
+@{
+    ViewBag.Title = "Quản lý Đơn hàng";
+}
+
+@section PageToolBar {
+    <a href="~/Order/Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>
+        Lập đơn hàng mới
+    </a>
+}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form id="formSearch"
+              method="get"
+              action="~/Order/Search"
+              data-target="searchResult"
+              onsubmit="paginationSearch(event, this, 1)">
+
+            <input type="hidden" name="Page" value="@Model.Page" />
+            <input type="hidden" name="PageSize" value="@Model.PageSize" />
+
+            <div class="row g-2">
+                <div class="col-md-3">
+                    <label class="form-label">Trạng thái đơn hàng</label>
+                    <select name="Status" class="form-select">
+                        <option value="0">-- Tất cả --</option>
+                        <option value="@((int)OrderStatusEnum.New)" selected="@(Model.Status == OrderStatusEnum.New)">
+                            Đang chờ duyệt
+                        </option>
+                        <option value="@((int)OrderStatusEnum.Accepted)" selected="@(Model.Status == OrderStatusEnum.Accepted)">
+                            Đã duyệt
+                        </option>
+                        <option value="@((int)OrderStatusEnum.Shipping)" selected="@(Model.Status == OrderStatusEnum.Shipping)">
+                            Đang giao
+                        </option>
+                        <option value="@((int)OrderStatusEnum.Completed)" selected="@(Model.Status == OrderStatusEnum.Completed)">
+                            Hoàn tất
+                        </option>
+                        <option value="@((int)OrderStatusEnum.Cancelled)" selected="@(Model.Status == OrderStatusEnum.Cancelled)">
+                            Bị hủy
+                        </option>
+                        <option value="@((int)OrderStatusEnum.Rejected)" selected="@(Model.Status == OrderStatusEnum.Rejected)">
+                            Bị từ chối
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Thời gian lập đơn hàng</label>
+                    <div class="input-group">
+                        <input type="text"
+                               name="DateFrom"
+                               value="@(Model.DateFrom?.ToString("dd/MM/yyyy"))"
+                               class="form-control date-picker"
+                               placeholder="Từ ngày..." />
+                        <span class="input-group-text">-</span>
+                        <input type="text"
+                               name="DateTo"
+                               value="@(Model.DateTo?.ToString("dd/MM/yyyy"))"
+                               class="form-control date-picker"
+                               placeholder="...đến ngày" />
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <label class="form-label">Tên khách hàng</label>
+                    <div class="input-group">
+                        <input type="text"
+                               name="SearchValue"
+                               value="@Model.SearchValue"
+                               class="form-control"
+                               placeholder="Tên khách hàng..."
+                               autofocus />
+
+                        <button type="submit" class="btn btn-info d-flex align-items-center">
+                            <i class="bi bi-search me-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="searchResult"></div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            paginationSearch(null, document.getElementById("formSearch"), @Model.Page);
+        });
+
+        async function paginationSearch(event, form, page = 1) {
+            if (event) event.preventDefault();
+
+            const formData = new FormData(form);
+            formData.set("Page", page);
+
+            try {
+                const url = new URL(form.action, window.location.origin);
+
+                for (const [key, value] of formData.entries()) {
+                    url.searchParams.set(key, value);
+                }
+
+                const response = await fetch(url, {
+                    method: "GET"
+                });
+
+                if (!response.ok) {
+                    throw new Error("Lỗi khi tải danh sách đơn hàng");
+                }
+
+                const html = await response.text();
+                const targetId = form.getAttribute("data-target");
+
+                if (targetId) {
+                    document.getElementById(targetId).innerHTML = html;
+                }
+            }
+            catch (error) {
+                console.error(error);
+                document.getElementById("searchResult").innerHTML =
+                    '<div class="alert alert-danger mb-0">Không thể tải danh sách đơn hàng</div>';
+            }
+        }
+    </script>
+}

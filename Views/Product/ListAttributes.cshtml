@@ -1,0 +1,69 @@
+﻿@model IEnumerable<LiteCommerce.Models.Catalog.ProductAttribute>
+
+@{
+    Layout = null;
+    var productId = ViewBag.ProductID ?? 0;
+}
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div class="card card-outline card-success mt-3">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h5 id="attributes" class="card-title mb-0">
+                            <i class="bi bi-list-check me-2"></i>
+                            Thuộc tính mặt hàng
+                        </h5>
+                    </div>
+                    <div class="col text-end">
+                        <a class="btn btn-sm btn-primary" href="~/Product/CreateAttribute/@productId">
+                            <i class="bi bi-plus-circle me-1"></i>
+                            Bổ sung
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-1">
+                <table class="table table-bordered table-hover mb-0 align-middle">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Tên thuộc tính</th>
+                            <th>Giá trị</th>
+                            <th style="width:120px" class="text-center">Thứ tự</th>
+                            <th style="width:100px" class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.AttributeName</td>
+                                    <td>@item.AttributeValue</td>
+                                    <td class="text-center">@item.DisplayOrder</td>
+                                    <td class="text-center text-nowrap">
+                                        <a class="btn btn-sm btn-primary" href="~/Product/EditAttribute/@productId?attributeId=@item.AttributeID">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger" href="~/Product/DeleteAttribute/@productId?attributeId=@item.AttributeID">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">Chưa có thuộc tính</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

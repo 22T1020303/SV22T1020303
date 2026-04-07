@@ -1,0 +1,40 @@
+﻿@model OrderViewInfo
+
+@{
+    Layout = null;
+}
+
+<form id="formFinish" onsubmit="finishOrder(event, @Model.OrderID)">
+    <div class="modal-header text-bg-success">
+        <strong class="modal-title">
+            Xác nhận hoàn tất đơn hàng
+        </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+
+    <div class="modal-body">
+        <div class="alert alert-success d-flex align-items-center">
+            <i class="bi bi-info-circle me-2"></i>
+            Bạn có chắc chắn đơn hàng này đã được giao thành công?
+        </div>
+
+        <dl class="row mb-0">
+            <dt class="col-sm-4">Mã đơn hàng</dt>
+            <dd class="col-sm-8">@Model.OrderID</dd>
+
+            <dt class="col-sm-4">Khách hàng</dt>
+            <dd class="col-sm-8">@Model.CustomerName</dd>
+        </dl>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle"></i> Hoàn tất
+        </button>
+        <button type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+            Đóng
+        </button>
+    </div>
+</form>
